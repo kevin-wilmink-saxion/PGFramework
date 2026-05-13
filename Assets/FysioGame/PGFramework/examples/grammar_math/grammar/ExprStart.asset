@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77a97696808e4f91b21fa9d27683c93, type: 3}
+  m_Name: ExprStart
+  m_EditorClassIdentifier: grammar::Assets.scripts.grammar.NonTerminal
+  symbolName: ExprStart
+  isSynthetic: 0
+  evaluatorsOnInit:
+  - {fileID: 11400000, guid: f8f72ab4f25a24eebafd95a978779786, type: 2}
+  attributeDefintions:
+  - name: depth
+  productions:
+  - rhs:
+    - {fileID: 11400000, guid: 1dbd8b0315226473e8d7362929800a58, type: 2}
+    constraints: []
+    inheritedEquations:
+    - targets: 00000000
+      source: 00000000
+      evaluator: {fileID: 11400000, guid: c3f0e95782c694385b8f8876939affb1, type: 2}
+    - targets: 01000000
+      source: 00000000
+      evaluator: {fileID: 11400000, guid: 80a1f6be1898545d1b6aa15dc99ae09c, type: 2}
+    synthezisedEquations: []

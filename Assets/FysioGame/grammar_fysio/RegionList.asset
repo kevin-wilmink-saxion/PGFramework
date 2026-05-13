@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77a97696808e4f91b21fa9d27683c93, type: 3}
+  m_Name: RegionList
+  m_EditorClassIdentifier: grammar::Assets.scripts.grammar.NonTerminal
+  symbolName: RegionList
+  isSynthetic: 1
+  evaluatorsOnInit: []
+  attributeDefintions:
+  - name: rep
+  productions:
+  - rhs:
+    - {fileID: 11400000}
+    - {fileID: 11400000, guid: 613d66f1cfbc0471cacc59b45ad2721f, type: 2}
+    constraints:
+    - {fileID: 11400000, guid: 5324c33f20d1f4d2cb1f5eb667ad75bd, type: 2}
+    inheritedEquations:
+    - targets: 01000000
+      source: 00000000
+      evaluator: {fileID: 11400000, guid: f792e2b552a77471783979f3a162da0b, type: 2}
+    - targets: 01000000
+      source: 00000000
+      evaluator: {fileID: 11400000, guid: ddf75c6c49bee4446a1a580f9f72ee91, type: 2}
+    synthezisedEquations: []
+  - rhs:
+    - {fileID: 11400000, guid: 613d66f1cfbc0471cacc59b45ad2721f, type: 2}
+    constraints:
+    - {fileID: 11400000, guid: f378a0fe7948d4e9ca0edfd60691383b, type: 2}
+    inheritedEquations: []
+    synthezisedEquations: []

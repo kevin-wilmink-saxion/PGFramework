@@ -1,0 +1,41 @@
+Workout {rep: 19}
+	Region {rep: 0}
+		task {}
+	Region {rep: 0}
+		task {}
+	Region {rep: 1}
+		task {}
+	Region {rep: 2}
+		task {}
+	Region {rep: 3}
+		task {}
+	Region {rep: 4}
+		task {}
+	Region {rep: 5}
+		task {}
+	Region {rep: 6}
+		task {}
+	Region {rep: 7}
+		task {}
+	Region {rep: 8}
+		task {}
+	Region {rep: 9}
+		task {}
+	Region {rep: 10}
+		task {}
+	Region {rep: 11}
+		task {}
+	Region {rep: 12}
+		task {}
+	Region {rep: 13}
+		task {}
+	Region {rep: 14}
+		task {}
+	Region {rep: 15}
+		task {}
+	Region {rep: 16}
+		task {}
+	Region {rep: 17}
+		task {}
+	Region {rep: 18}
+		task {}

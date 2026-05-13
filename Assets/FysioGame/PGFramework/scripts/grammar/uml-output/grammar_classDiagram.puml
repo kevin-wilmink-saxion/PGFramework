@@ -1,0 +1,97 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+' ===== Core Symbols =====
+class Symbol {
+    string symbolName
+    List<AttributeEvaluator> evaluatorsOnInit
+    List<AttributeDefinition> attributeDefinitions
+}
+
+class Terminal
+class NonTerminal {
+    List<Production> productions
+    getRandomProduction()
+}
+
+Symbol <|-- Terminal
+Symbol <|-- NonTerminal
+
+' ===== Grammar Asset =====
+class GrammarAsset {
+    NonTerminal root
+    List<AttributeDefinition> attributes
+}
+
+GrammarAsset --> NonTerminal : root
+GrammarAsset --> AttributeDefinition : attributes
+
+' ===== Attribute System =====
+class AttributeDefinition {
+    enum AttributeKind { Synthesized, Inherited }
+    string name
+    string dataType
+    AttributeKind kind
+}
+
+class AttributeReference {
+    AttributeDefinition attributeDefinition
+    T value
+}
+
+AttributeDefinition <-- AttributeReference
+
+class AttributeEvaluator {
+    + Evaluate(List<Node> target, List<Node> source)
+}
+
+' ===== Attribute Equations =====
+class AttributeEquation {
+    List<int> targets
+    List<int> source
+    AttributeEvaluator evaluator
+    IsSynthesized()
+    Evaluate(Node parentNode)
+}
+
+AttributeEquation --> AttributeEvaluator
+Production --> AttributeEquation : attributeEquation
+
+' ===== Production =====
+class Production {
+    List<Symbol> rhs
+    List<AttributeEquation> attributeEquation
+    EvaluateInheritedAttributeEquations()
+    EvaluateSynthesizedAttributeEquations()
+}
+
+NonTerminal --> Production : productions
+Production --> Symbol : rhs
+
+' ===== Nodes =====
+class Node {
+    List<Node> children
+    Node parent
+    Symbol symbol
+    List<AttributeReference<int>> attributes
+    GetAttribute(name)
+    SetAttribute(name, value)
+    Evaluate()
+    static GenerateNode()
+}
+
+class TerminalNode
+class NonTerminalNode {
+    Evaluate()
+}
+
+Node <|-- TerminalNode
+Node <|-- NonTerminalNode
+
+Node --> Symbol
+Node --> Node : children
+Node --> AttributeReference
+
+NonTerminalNode --> Production : uses in Evaluate()
+
+@enduml

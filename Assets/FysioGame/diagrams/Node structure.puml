@@ -1,0 +1,22 @@
+@startuml
+
+class Node {
+    parent : Node
+    children : List<Node>
+    attributes : List<AttributeReference>
+}
+
+class AttributeReference {
+    value : int
+    attributeDefinition : string
+}
+
+
+
+' Relationships
+Node --> "1" Node : parent
+Node --> "0.*" Node : children
+
+Node "1" --> "0..*" AttributeReference : attributes
+
+@enduml

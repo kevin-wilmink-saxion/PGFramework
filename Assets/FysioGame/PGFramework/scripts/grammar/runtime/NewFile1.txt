@@ -1,0 +1,140 @@
+using System;
+using System.Collections.Generic;
+using Assets.scripts.grammar;
+using Assets.scripts.grammar.runtime;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
+public class GrammarGenerator : MonoBehaviour
+{
+    public GrammarAsset grammar;
+    
+    
+    public List<Node> nodes = new List<Node>();
+    
+    
+    public void StartNewGeneration(GrammarAsset grammarAsset)
+    {
+        Debug.Log("============= Start new Generation ("+grammarAsset.name+") =============");
+
+        grammar = grammarAsset;
+
+        Node grammarTree = ProcessSymbol(grammarAsset.root, null);
+
+
+        Debug.Log(treeToString(grammarTree, 0));
+        Debug.Log("========================== DONE! ==========================");
+    }
+
+
+
+
+    private String treeToString(Node node, int level)
+    {
+        String result = "";
+        
+        //add tabs
+        for (int i = 0; i < level; i++)
+        {
+            result += "\t";
+        }
+        
+        result += node.symbol.symbolName;
+
+        foreach (Node child in node.children)
+        {
+            result += "\n" + treeToString(child, level+1);
+        }
+
+        return result;
+    }
+
+
+
+
+    private Node ProcessSymbol(Symbol symbol, NonTerminalNode parentNode)
+    {
+        if (symbol == null)
+        {
+            //Debug.Log("DONE!");
+            return null;
+        }
+
+        
+        
+        
+        
+        //if the symbol is terminal, create an terminalNode and then stop this path
+        if (symbol is Terminal)
+        {
+            TerminalNode terminalNode = new TerminalNode();
+            terminalNode.parent = parentNode;
+            if(parentNode != null)
+                terminalNode.symbol = symbol;
+                parentNode.children.Add(terminalNode);
+
+            return terminalNode;
+        }
+        
+        //symbol is set, and it a NonTerminal:
+        NonTerminal nonTerminal = symbol as NonTerminal;
+        
+        //create an element for this item
+        NonTerminalNode nonTerminalNode = new NonTerminalNode();
+        nonTerminalNode.symbol = symbol;
+        nonTerminalNode.parent = parentNode;
+        
+        
+        
+        
+        Production production = getProduction(nonTerminal);
+        
+        //check: if there is a valid production
+        if (production == null)
+        {
+            Debug.LogWarning("Could not find a production for the Non-Terminal: " + nonTerminal.name);
+            return null;
+        }
+
+        //check: if there is the production has a valid rhs
+        if (production.rhs == null)
+        {
+            Debug.LogWarning("A production in " + nonTerminal.name + " has a production with a null rhs");
+            return null;
+        }
+        
+        
+        //do the production
+        foreach (Symbol rhsSymbol in production.rhs)
+        {
+            Node childNode = ProcessSymbol(rhsSymbol, nonTerminalNode);
+            //Debug.Log(childNode);
+            //Debug.Log(nwNode);
+            nonTerminalNode.children.Add(childNode);
+        }
+
+        return nonTerminalNode;
+    }
+
+
+
+
+    private Production getProduction(NonTerminal nonTerminal)
+    {
+        List<Production> options = new List<Production>();
+        foreach (Production production in grammar.productions){
+            if (production.lhs == nonTerminal)
+                options.Add(production);
+        }
+
+        if (options.Count <= 0)
+        {
+            return null;
+        }
+        
+        
+        //for now, return a random one
+        return options[Random.Range(0, options.Count)];
+    }
+    
+}

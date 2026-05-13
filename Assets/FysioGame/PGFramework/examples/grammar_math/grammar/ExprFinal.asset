@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77a97696808e4f91b21fa9d27683c93, type: 3}
+  m_Name: ExprFinal
+  m_EditorClassIdentifier: grammar::Assets.scripts.grammar.NonTerminal
+  symbolName: ExprFinal
+  isSynthetic: 0
+  evaluatorsOnInit: []
+  attributeDefintions:
+  - name: value
+  - name: depth
+  productions:
+  - rhs:
+    - {fileID: 11400000, guid: dd330577c2c404a1e9940effcaabc3dc, type: 2}
+    - {fileID: 11400000, guid: 5fc9d347e2086475b8d1878cb63ee757, type: 2}
+    - {fileID: 11400000, guid: dd330577c2c404a1e9940effcaabc3dc, type: 2}
+    constraints: []
+    inheritedEquations: []
+    synthezisedEquations:
+    - targets: 00000000
+      source: 0100000003000000
+      evaluator: {fileID: 11400000, guid: a8ca005a97495476cb9a0db7b729d117, type: 2}
+  - rhs:
+    - {fileID: 11400000, guid: dd330577c2c404a1e9940effcaabc3dc, type: 2}
+    - {fileID: 11400000, guid: 98a142396824b4982be59c7ff89ad9bf, type: 2}
+    - {fileID: 11400000, guid: dd330577c2c404a1e9940effcaabc3dc, type: 2}
+    constraints: []
+    inheritedEquations: []
+    synthezisedEquations:
+    - targets: 00000000
+      source: 01000000
+      evaluator: {fileID: 11400000, guid: a8ca005a97495476cb9a0db7b729d117, type: 2}
+    - targets: 00000000
+      source: 03000000
+      evaluator: {fileID: 11400000, guid: 45e753d305e7f43e0872c121d539239e, type: 2}
