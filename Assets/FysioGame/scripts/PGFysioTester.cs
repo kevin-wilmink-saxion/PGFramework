@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Assets.scripts.grammar.runtime;
-using grammar;
+using FysioGame.scripts;
 using UnityEngine;
 
 
@@ -9,6 +9,12 @@ public class PGFysioTester : MonoBehaviour
 {
     public GrammarGenerator grammarGenerator;
     public GrammarAsset grammarAsset;
+    
+   public IProceduralGenerationConsumer pgConsumer;
+    
+    
+    public bool debug_printTree = true;
+    public bool debug_printNodes = true;
     
     void Awake()
     {
@@ -32,14 +38,16 @@ public class PGFysioTester : MonoBehaviour
     
     private void OnGrammarGenerated(Node root)
     {
-        Debug.Log("Grammar generated: " + root.TreeToString());
+        if (debug_printTree)
+            Debug.Log("Grammar generated: " + root.TreeToString());
         
-        
+        // call the event that the generation is done. The root is a data tree (contains all PG output data)
+        pgConsumer?.OnProceduralGenerationFinished(root);
         
         //Examples:
         
         //PrintExamples(root); //shows how to access the data from the output
-        //TraverseTree(root); //use this too loop over the output, and gain insight on how to access these elements
+        TraverseTree(root); //loop over all the elements in after the PG. (breath first)
     }
 
 
@@ -90,18 +98,25 @@ public class PGFysioTester : MonoBehaviour
     /// <param name="node"></param>
     private void OnNodeVisited(Node node)
     {
-        String result = "node: " + node.symbol.symbolName;
-        
-        result += ", attributes: ";
-        List<string> attributes = node.GetAllAttributeNames(); //use node.GetAllAttributeNames() to get all the attribute names
-        
-        foreach (string attributeName in attributes)
+        if (debug_printNodes)
         {
-            result += attributeName + ": " + node.GetAttributeValue(attributeName) + ", "; //use node.GetAttributeValue(..) to get the value of an attribute
-        }
+            String result = "node: " + node.symbol.symbolName;
+            result += ", attributes: ";
+            List<string>
+                attributes =
+                    node.GetAllAttributeNames(); //use node.GetAllAttributeNames() to get all the attribute names
 
-        result += "\n";
-        Debug.Log(result);
+            foreach (string attributeName in attributes)
+            {
+                result += attributeName + ": " + node.GetAttributeValue(attributeName) +
+                          ", "; //use node.GetAttributeValue(..) to get the value of an attribute
+            }
+
+            result += "\n";
+            Debug.Log(result);
+        }
+        
+        pgConsumer?.OnNodeVisited(node);
     }
 
 }

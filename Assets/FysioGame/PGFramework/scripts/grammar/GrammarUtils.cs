@@ -112,7 +112,7 @@ namespace grammar
                 cumulativeFrequency += frequencies[i];
                 if (randomValue < cumulativeFrequency)
                 {
-                    return i + 1; // Return 1-based index
+                    return i; // Return 1-based index
                 }
             }
             
